@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("input").focus(function(){
+                if ($(this).attr("type")=="text") {
+                    var target = $(this).attr("name");
+                    var x = document.getElementById(target);
+                    x.play();
+                }
+            });
+
+            $("button").click(function(){
+
+                if ($(this).attr("type")=="button") {
+                    var target = $(this).attr("name");
+                    var x = document.getElementById(target);
+                    x.currentTime = 0;
+                    x.play();
+                }
+            });
+        });
+        function rbf(){
+            alert("aa");
+            var audio = document.getElementById(target);
+            audio.currentTime = 0;
+        }
+
+        function bf(){
+            var audio = document.getElementById(target);
+            if(audio!==null){
+                alert(audio.paused);
+                if(audio.paused){
+                    audio.play();
+                }else{
+                    audio.pause();
+                }
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <title>Now start dictation</title>
+</head>
+<body>
+    <form method="post" action="" enctype="multipart/form-data">
+		<table>
+			{% for word in words %}
+			<tr>
+				<td>
+                    <audio id="{{word}}" preload="preload">
+                        <source src="/dictation/words/?wordname={{word}}" type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
+                    <button type="button" name="{{word}}">replay</button>
+				</td>
+				<td>
+					<input type="text" name="{{word}}" class="wordinput"></input>
+				</td>
+			</tr>
+			{% endfor %}
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+		</table>
+    </form>
+</body>
+</html>
